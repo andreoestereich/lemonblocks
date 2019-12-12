@@ -50,9 +50,9 @@
 			char *state;
 			char *symbol;
 		} map[] = {
-			{ "Charging",    "🔌" },
-			{ "Discharging", "🔋" },
-			{ "Full",        "⚡" },
+			{ "Charging",    "" },
+			{ "Discharging", "" },
+			{ "Full",        "" },
 		};
 		size_t i;
 		char path[PATH_MAX], state[12];
@@ -186,7 +186,7 @@
 
 		if (load_apm_power_info(&apm_info)) {
 			if (apm_info.ac_state != APM_AC_ON) {
-				return bprintf("%uh %02um",
+				return bprintf("%uh:%02um",
 			                       apm_info.minutes_left / 60,
 				               apm_info.minutes_left % 60);
 			} else {
@@ -247,6 +247,6 @@
 				|| rem == -1)
 			return NULL;
 
-		return bprintf("%uh %02um", rem / 60, rem % 60);
+		return bprintf("%uh:%02um", rem / 60, rem % 60);
 	}
 #endif

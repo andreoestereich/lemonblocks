@@ -88,16 +88,13 @@ void getsigcmds(int signal)
 		if ((int) blocks[i].signal == signal)
         {
             len = 0;
-            printf("1\n");
 			if (!(res = blocks[i].func(blocks[i].args))) {
 				res = "?";
 			}
-            printf("2\n");
 			if ((ret = esnprintf(statusbar[i] + len, sizeof(statusbar[i]) - len,
 			                    blocks[i].fmt, res)) < 0) {
 				break;
 			}
-            printf("3\n");
         }
 	}
 }
