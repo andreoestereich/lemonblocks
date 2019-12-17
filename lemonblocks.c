@@ -7,7 +7,7 @@
 #define CMDLEN		512
 
 #include "util.h"
-#include "dwmblocks.h"
+#include "lemonblocks.h"
 
 void sighandler(int num);
 void replace(char *str, char old, char new);
@@ -29,7 +29,7 @@ static Window root;
 static char statusbar[LEN(blocks)][CMDLEN] = {0};
 static char statusstr[2][512];
 static int statusContinue = 1;
-static void (*writestatus) () = setroot;
+static void (*writestatus) () = pstdout;
 
 void replace(char *str, char old, char new)
 {
@@ -173,8 +173,8 @@ int main(int argc, char** argv)
 	{	
 		if (!strcmp("-d",argv[i]))
 			delim = argv[++i][0];
-		else if(!strcmp("-p",argv[i]))
-			writestatus = pstdout;
+		else if(!strcmp("-r",argv[i]))
+			writestatus = setroot;
 	}
 	signal(SIGTERM, termhandler);
 	signal(SIGINT, termhandler);

@@ -27,19 +27,20 @@ COM =\
 	components/user\
 	components/volume\
 	components/cat\
-	components/wifi
+	components/wifi\
+	components/bspwmB
 
-all: dwmblocks
+all: lemonblocks
 
 $(COM:=.o): config.mk $(REQ:=.h)
-dwmblocks.o: dwmblocks.c dwmblocks.h blocks.h config.mk $(REQ:=.h)
+lemonblocks.o: lemonblocks.c lemonblocks.h blocks.h config.mk $(REQ:=.h)
 
 .c.o:
 	$(CC) -o $@ -c $(CPPFLAGS) $(CFLAGS) $<
 
-dwmblocks: dwmblocks.o $(COM:=.o) $(REQ:=.o) 
-	$(CC) -o $@ $(LDFLAGS) $(COM:=.o) $(REQ:=.o) dwmblocks.o $(LDLIBS)
+lemonblocks: lemonblocks.o $(COM:=.o) $(REQ:=.o) 
+	$(CC) -o $@ $(LDFLAGS) $(COM:=.o) $(REQ:=.o) lemonblocks.o $(LDLIBS)
 
 clean:
-	rm -f dwmblocks dwmblocks.o $(COM:=.o) $(REQ:=.o)
+	rm -f lemonblocks lemonblocks.o $(COM:=.o) $(REQ:=.o)
 

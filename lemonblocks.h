@@ -18,12 +18,13 @@ void getcmds(int time);
 void getsigcmds(int signal);
 void setupsignals();
 int getstatus(char *str, char *last);
-void setroot();
+void pstdout();
 void statusloop();
 void sighandler(int signum);
 void termhandler(int signum);
 
 
+const char *bspDesktops(void);
 
 /* battery */
 const char *battery_perc(const char *);
