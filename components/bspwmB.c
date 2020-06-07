@@ -109,8 +109,8 @@ long int jqINT(const char *json, const char* field)
     return atol(out);
 }
 
-wchar_t * applications[] = {L"Mozilla Firefox", L"Chromium", L"VIM", L"st", L"Vim", L"newsboat", L"neomutt", L"mocp",L"Telegram", NULL};
-char *icons[] = {"","", "", "", "", "", "", "","",""};
+wchar_t * applications[] = {L"Brave",L"Mozilla Firefox", L"Chromium", L"VIM", L"st", L"Vim", L"newsboat", L"neomutt", L"mocp",L"mpv",L"Telegram", NULL};
+char *icons[] = {"","","", "", "", "", "", "", "", "", "",""};
 
 int gimmeICONS(wchar_t *title)
 {
