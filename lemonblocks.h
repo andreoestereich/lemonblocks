@@ -75,10 +75,10 @@ const char *netspeed_tx(const char *interface);
 const char *num_files(const char *path);
 
 /* ram */
-const char *ram_free(void);
+const char *ram_free(char unit);
 const char *ram_perc(void);
-const char *ram_total(void);
-const char *ram_used(void);
+const char *ram_total(char unit);
+const char *ram_used(char unit);
 
 /* run_command */
 const char *run_command(const char *cmd);

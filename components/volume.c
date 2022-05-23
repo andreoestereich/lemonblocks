@@ -68,7 +68,7 @@ vol_perc(const char *card)
         return NULL;
     }
 
-    fprintf(stderr, "Get volume %ld with status %i\n", *outvol, ret);
+    //fprintf(stderr, "Get volume %ld with status %i\n", *outvol, ret);
     /* make the value bound to 100 */
     *outvol -= minv;
     maxv -= minv;

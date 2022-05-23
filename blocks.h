@@ -14,7 +14,7 @@ static const bBlock blocks[] = {
 	//{ battery_remaining,  "%%%s",           "BAT0",  1,  0 },
 	//{ cpu_freq,           "|%s",           NULL,  1,  0  },
 	{ cpu_perc,           "|⚙️ %s",         1,  1,  0  },
-	{ ram_used,           "| %s",          NULL,  1,  0  },
+	{ ram_used,           "| %s",          'G',  1,  0  },
 	{ wifi_perc_bar,          "| %s",         "wlp1s0",  1,  0 },
 	//{ netspeed_rx,          "|🔻%s",         "wlp1s0",  1,  0 },
 	//{ netspeed_tx,          "🔺%s",         "wlp1s0",  1,  0 },

@@ -126,6 +126,34 @@ fmt_human(uintmax_t num, int base)
 	return bprintf("%.1f %s", scaled, prefix[i]);
 }
 
+const char *
+fmt_bytes(uintmax_t num, char* unit)
+{
+	float scaled;
+
+	switch (*unit) {
+	case 'k':
+        scaled = ((float) num)/1024.0;
+		break;
+	case 'M':
+        scaled = ((float) num)/1048576.0;
+		break;
+	case 'G':
+        scaled = ((float) num)/1073741824.0;
+		break;
+	case 'T':
+        scaled = ((float) num)/1099511627776.0;
+		break;
+	case 'P':
+        scaled = ((float) num)/1125899906842624.0;
+		break;
+	default:
+		return fmt_human(num , 1024);
+	}
+
+	return bprintf("%.1f%c", scaled, *unit);
+}
+
 int
 pscanf(const char *path, const char *fmt, ...)
 {

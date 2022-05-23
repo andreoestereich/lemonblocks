@@ -7,7 +7,7 @@
 	#include <stdint.h>
 
 	const char *
-	ram_free(void)
+	ram_free(char unit)
 	{
 		uintmax_t free;
 
@@ -19,7 +19,7 @@
 			return NULL;
 		}
 
-		return fmt_human(free * 1024, 1024);
+        return fmt_bytes(free* 1024, &unit);
 	}
 
 	const char *
@@ -46,7 +46,7 @@
 	}
 
 	const char *
-	ram_total(void)
+	ram_total(char unit)
 	{
 		uintmax_t total;
 
@@ -55,11 +55,11 @@
 			return NULL;
 		}
 
-		return fmt_human(total * 1024, 1024);
+        return fmt_bytes(total* 1024, &unit);
 	}
 
 	const char *
-	ram_used(void)
+	ram_used(char unit)
 	{
 		uintmax_t total, free, buffers, cached;
 
@@ -73,8 +73,7 @@
 			return NULL;
 		}
 
-		return fmt_human((total - free - buffers - cached) * 1024,
-		                 1024);
+        return fmt_bytes((total - free - buffers - cached)* 1024, &unit);
 	}
 #elif defined(__OpenBSD__)
 	#include <stdlib.h>
@@ -101,15 +100,15 @@
 	}
 
 	const char *
-	ram_free(void)
+	ram_free(char unit)
 	{
 		struct uvmexp uvmexp;
 		int free_pages;
 
 		if (load_uvmexp(&uvmexp)) {
 			free_pages = uvmexp.npages - uvmexp.active;
-			return fmt_human(pagetok(free_pages, uvmexp.pageshift) *
-			                 1024, 1024);
+			return fmt_bytes(pagetok(free_pages, uvmexp.pageshift) *
+			                 1024, &unit);
 		}
 
 		return NULL;
@@ -130,28 +129,26 @@
 	}
 
 	const char *
-	ram_total(void)
+	ram_total(char unit)
 	{
 		struct uvmexp uvmexp;
 
 		if (load_uvmexp(&uvmexp)) {
-			return fmt_human(pagetok(uvmexp.npages,
+			return fmt_bytes(pagetok(uvmexp.npages,
 			                         uvmexp.pageshift) * 1024,
-			                 1024);
+			                 &unit);
 		}
 
 		return NULL;
 	}
 
 	const char *
-	ram_used(void)
+	ram_used(char unit)
 	{
 		struct uvmexp uvmexp;
 
 		if (load_uvmexp(&uvmexp)) {
-			return fmt_human(pagetok(uvmexp.active,
-			                         uvmexp.pageshift) * 1024,
-			                 1024);
+        return fmt_bytes(pagetok(uvmexp.active, uvmexp.pageshift) * 1024, &unit);
 		}
 
 		return NULL;
@@ -163,7 +160,7 @@
 	#include <vm/vm_param.h>
 
 	const char *
-	ram_free(void) {
+	ram_free(char unit) {
 		struct vmtotal vm_stats;
 		int mib[] = {CTL_VM, VM_TOTAL};
 		size_t len;
@@ -173,11 +170,11 @@
 				|| !len)
 			return NULL;
 
-		return fmt_human(vm_stats.t_free * getpagesize(), 1024);
+		return fmt_bytes(vm_stats.t_free * getpagesize(), &unit);
 	}
 
 	const char *
-	ram_total(void) {
+	ram_total(char unit) {
 		long npages;
 		size_t len;
 
@@ -186,7 +183,7 @@
 				|| !len)
 			return NULL;
 
-		return fmt_human(npages * getpagesize(), 1024);
+		return fmt_bytes(npages * getpagesize(), &human);
 	}
 
 	const char *
@@ -208,7 +205,7 @@
 	}
 
 	const char *
-	ram_used(void) {
+	ram_used(char unit) {
 		long active;
 		size_t len;
 
@@ -217,6 +214,6 @@
 				|| !len)
 			return NULL;
 
-		return fmt_human(active * getpagesize(), 1024);
+		return fmt_bytes(active * getpagesize(), &unit);
 	}
 #endif
