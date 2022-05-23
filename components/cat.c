@@ -11,12 +11,20 @@
 const char *
 cat_file(const char *path)
 {
-    char state[12];
+    char state[50];
+    FILE *fp;
+    fp = fopen(path, "r");
 
-    if (pscanf(path, "%12s", state) != 1) {
+    if (fgets(state, 20, (FILE*)fp) == NULL ) {
+        fclose(fp);
         return NULL;
     }
+    char *pos;
+    if ((pos=strchr(state, '\n')) != NULL)
+        *pos = '\0';
+    else
+
+    fclose(fp);
 
     return bprintf("%s", state);
 }
-

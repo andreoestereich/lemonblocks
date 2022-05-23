@@ -40,7 +40,8 @@
 			return NULL;
 		}
 
-		return bprintf("%d", perc);
+        if (perc == 100) return bprintf("");
+        else return bprintf("%d%%", perc);
 	}
 
 	const char *
@@ -50,9 +51,9 @@
 			char *state;
 			char *symbol;
 		} map[] = {
-			{ "Charging",    "" },
-			{ "Discharging", "" },
-			{ "Full",        "" },
+			{ "Charging",    "🔌" },
+			{ "Discharging", "🔋" },
+			{ "Full",        "⚡" },
 		};
 		size_t i;
 		char path[PATH_MAX], state[12];

@@ -33,7 +33,7 @@ const char *battery_remaining(const char *);
 
 /* cpu */
 const char *cpu_freq(void);
-const char *cpu_perc(void);
+const char *cpu_perc(int bar);
 
 /* datetime */
 const char *datetime(const char *fmt);
@@ -66,10 +66,10 @@ const char *keymap(void);
 /* load_avg */
 const char *load_avg(void);
 
-/* netspeeds
+// netspeeds
 const char *netspeed_rx(const char *interface);
 const char *netspeed_tx(const char *interface);
- */
+
 
 /* num_files */
 const char *num_files(const char *path);
@@ -105,8 +105,8 @@ const char *vol_perc(const char *card);
 
 /* wifi */
 const char *wifi_perc(const char *interface);
+const char *wifi_perc_bar(const char *interface);
 const char *wifi_essid(const char *interface);
 
 // get output of file
 const char *cat_file(const char *path);
-

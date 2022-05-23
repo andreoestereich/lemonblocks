@@ -27,6 +27,7 @@ COM =\
 	components/user\
 	components/volume\
 	components/cat\
+	components/netspeeds\
 	components/wifi\
 	components/bspwmB
 
@@ -38,9 +39,8 @@ lemonblocks.o: lemonblocks.c lemonblocks.h blocks.h config.mk $(REQ:=.h)
 .c.o:
 	$(CC) -o $@ -c $(CPPFLAGS) $(CFLAGS) $<
 
-lemonblocks: lemonblocks.o $(COM:=.o) $(REQ:=.o) 
+lemonblocks: lemonblocks.o $(COM:=.o) $(REQ:=.o)
 	$(CC) -o $@ $(LDFLAGS) $(COM:=.o) $(REQ:=.o) lemonblocks.o $(LDLIBS)
 
 clean:
 	rm -f lemonblocks lemonblocks.o $(COM:=.o) $(REQ:=.o)
-

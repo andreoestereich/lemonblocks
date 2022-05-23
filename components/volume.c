@@ -54,7 +54,7 @@ vol_perc(const char *card)
 		if(! psw)
         {
             snd_mixer_close(handle);
-            return bprintf("");
+            return bprintf("🔇");
         }
 	}
 
@@ -76,8 +76,7 @@ vol_perc(const char *card)
 
     snd_mixer_close(handle);
     failsafe = *outvol;
-    if (*outvol > 70) return bprintf("%ld%%", *outvol);
-    else if (*outvol < 30) return bprintf("%ld%%", *outvol);
-    return bprintf("%ld%%", *outvol);
+    if (*outvol > 70) return bprintf("🔊%ld%%", *outvol);
+    else if (*outvol < 30) return bprintf("🔈%ld%%", *outvol);
+    return bprintf("🔉%ld%%", *outvol);
     }
-

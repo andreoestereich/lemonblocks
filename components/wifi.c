@@ -5,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <wchar.h>
 
 #include "../util.h"
 
@@ -65,6 +66,58 @@
 
 		/* 70 is the max of /proc/net/wireless */
 		return bprintf("%d", (int)((float)cur / 70 * 100));
+	}
+
+	const char *
+	wifi_perc_bar(const char *interface)
+	{
+		int cur;
+		size_t i;
+		char *p, *datastart;
+		char path[PATH_MAX];
+		char status[5];
+		FILE *fp;
+
+		if (esnprintf(path, sizeof(path), "/sys/class/net/%s/operstate",
+		              interface) < 0) {
+			return NULL;
+		}
+		if (!(fp = fopen(path, "r"))) {
+			warn("fopen '%s':", path);
+			return NULL;
+		}
+		p = fgets(status, 5, fp);
+		fclose(fp);
+		if (!p || strcmp(status, "up\n") != 0) {
+			return NULL;
+		}
+
+		if (!(fp = fopen("/proc/net/wireless", "r"))) {
+			warn("fopen '/proc/net/wireless':");
+			return NULL;
+		}
+
+		for (i = 0; i < 3; i++) {
+			if (!(p = fgets(buf, sizeof(buf) - 1, fp)))
+				break;
+		}
+		fclose(fp);
+		if (i < 2 || !p) {
+			return NULL;
+		}
+
+		if (!(datastart = strstr(buf, interface))) {
+			return NULL;
+		}
+
+		datastart = (datastart+(strlen(interface)+1));
+		sscanf(datastart + 1, " %*d   %d  %*d  %*d\t\t  %*d\t   "
+		       "%*d\t\t%*d\t\t %*d\t  %*d\t\t %*d", &cur);
+
+		/* 70 is the max of /proc/net/wireless the value bellow is between 8 and 0 */
+        int index = (int)((float)cur / 7.78);
+        char * bars[9] = {" ","▁","▂","▃","▄","▅","▆","▇","█"};
+        return bprintf("%s", bars[index]);
 	}
 
 	const char *
@@ -158,6 +211,26 @@
 				q = RSSI_TO_PERC(nr.nr_rssi);
 			}
 			return bprintf("%d", q);
+		}
+
+		return NULL;
+	}
+
+	const char *
+	wifi_perc_bar(const char *interface)
+	{
+		struct ieee80211_nodereq nr;
+		int q;
+
+		if (load_ieee80211_nodereq(interface, &nr)) {
+			if (nr.nr_max_rssi) {
+				q = IEEE80211_NODEREQ_RSSI(&nr);
+			} else {
+				q = RSSI_TO_PERC(nr.nr_rssi);
+			}
+            int index = q*10/125 - (q ==100);
+            char * bars[9] = {" ","▁","▂","▃","▄","▅","▆","▇","█"};
+			return bprintf("%s", bars[index]);
 		}
 
 		return NULL;

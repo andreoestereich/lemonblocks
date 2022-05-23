@@ -29,7 +29,7 @@ static Window root;
 static char statusbar[LEN(blocks)][CMDLEN] = {0};
 static char statusstr[2][512];
 static int statusContinue = 1;
-static void (*writestatus) () = pstdout;
+static void (*writestatus) () = setroot;
 
 void replace(char *str, char old, char new)
 {
@@ -62,7 +62,7 @@ void getcmds(int time)
     int ret, len;
 	const char *res;
 	for(int i = 0; i < LEN(blocks); i++)
-	{	
+	{
 		;
 		if ((blocks[i].interval != 0 && time % blocks[i].interval == 0) || time == -1)
         {
@@ -102,7 +102,7 @@ void getsigcmds(int signal)
 void setupsignals()
 {
 	for(int i = 0; i < LEN(blocks); i++)
-	{	  
+	{
 		if (blocks[i].signal > 0)
 			signal(SIGRTMIN+blocks[i].signal, sighandler);
 	}
@@ -170,11 +170,11 @@ void termhandler(int signum)
 int main(int argc, char** argv)
 {
 	for(int i = 0; i < argc; i++)
-	{	
+	{
 		if (!strcmp("-d",argv[i]))
 			delim = argv[++i][0];
-		else if(!strcmp("-r",argv[i]))
-			writestatus = setroot;
+		else if(!strcmp("-p",argv[i]))
+			writestatus = pstdout;
 	}
 	signal(SIGTERM, termhandler);
 	signal(SIGINT, termhandler);

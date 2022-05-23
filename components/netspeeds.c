@@ -12,7 +12,7 @@
 	{
 		uintmax_t oldrxbytes;
 		static uintmax_t rxbytes;
-		extern const unsigned int interval;
+		const unsigned int interval = 100;
 		char path[PATH_MAX];
 
 		oldrxbytes = rxbytes;
@@ -38,7 +38,7 @@
 	{
 		uintmax_t oldtxbytes;
 		static uintmax_t txbytes;
-		extern const unsigned int interval;
+		const unsigned int interval = 100;
 		char path[PATH_MAX];
 
 		oldtxbytes = txbytes;

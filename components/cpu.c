@@ -21,7 +21,7 @@
 	}
 
 	const char *
-	cpu_perc(void)
+	cpu_perc(int bar)
 	{
 		static long double a[7];
 		long double b[7], sum;
@@ -44,9 +44,18 @@
 			return NULL;
 		}
 
-		return bprintf("%02d", (int)(100 *
-		               ((b[0] + b[1] + b[2] + b[5] + b[6]) -
-		                (a[0] + a[1] + a[2] + a[5] + a[6])) / sum));
+        if (bar){
+            int index = (int)(8.99 *
+                           ((b[0] + b[1] + b[2] + b[5] + b[6]) -
+                            (a[0] + a[1] + a[2] + a[5] + a[6])) / sum);
+            char * bars[9] = {" ","▁","▂","▃","▄","▅","▆","▇","█"};
+            return bprintf("%s", bars[index]);
+        }
+        else {
+            return bprintf("%02d", (int)(100 *
+                           ((b[0] + b[1] + b[2] + b[5] + b[6]) -
+                            (a[0] + a[1] + a[2] + a[5] + a[6])) / sum));
+        }
 	}
 #elif defined(__OpenBSD__)
 	#include <sys/param.h>
@@ -74,7 +83,7 @@
 	}
 
 	const char *
-	cpu_perc(void)
+	cpu_perc(int bar)
 	{
 		int mib[2];
 		static uintmax_t a[CPUSTATES];
@@ -102,11 +111,22 @@
 			return NULL;
 		}
 
-		return bprintf("%d", 100 *
+        if (bar) {
+            int index = (int)( 8.99*
 		               ((a[CP_USER] + a[CP_NICE] + a[CP_SYS] +
 		                 a[CP_INTR]) -
 		                (b[CP_USER] + b[CP_NICE] + b[CP_SYS] +
 		                 b[CP_INTR])) / sum);
+            char * bars[9] = {" ","▁","▂","▃","▄","▅","▆","▇","█"};
+            return bprintf("%s", bars[index]);
+        }
+        else {
+            return bprintf("%d", 100 *
+                           ((a[CP_USER] + a[CP_NICE] + a[CP_SYS] +
+                             a[CP_INTR]) -
+                            (b[CP_USER] + b[CP_NICE] + b[CP_SYS] +
+                             b[CP_INTR])) / sum);
+        }
 	}
 #elif defined(__FreeBSD__)
 	#include <sys/param.h>
