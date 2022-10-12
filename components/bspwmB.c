@@ -347,8 +347,9 @@ const char *bspDesktops(void)
         win_id = jqINT(desktop, "focusedNodeId");
         if (win_id != XCB_NONE && (title = get_window_title(win_id)) != NULL)
         {
-            
+
             iconID = gimmeICONS(title);
+            free(title);
             if (strcmp(activeDekstop, split) == 0)
             {
                 strcat(status,"%{+u} ");
@@ -365,7 +366,6 @@ const char *bspDesktops(void)
                 strcat(status, icons[iconID]);
             }
             //printf("\n");
-            free(title);
         }
         else
         {
@@ -388,13 +388,23 @@ const char *bspDesktops(void)
 
         split = strtok(NULL,"\n");
     }
-    if (strcmp(currLayout, "tiled")==0) 
+    if (strcmp(currLayout, "tiled")==0)
         strcat(status, " |[]= ");
-    else {if (strcmp(currLayout, "monocle")==0) 
+    else {if (strcmp(currLayout, "monocle")==0)
         strcat(status, " |[M] ");
         else
             strcat(status, " |<>< ");
     }
+    win_id = XCB_NONE;
+    strcat(status," %{B#555803} ");
+    if (get_active_window(&win_id)) {
+        if (win_id != XCB_NONE && (title = get_window_title(win_id)) != NULL) {
+            strcat(status, (char*)title);
+            free(title);
+        }
+    } else
+        strcat(status,"    ");
+    strcat(status," %{r B-}");
 
     cleanup();
     return bprintf("%s", status);
