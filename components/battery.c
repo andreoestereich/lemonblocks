@@ -74,6 +74,39 @@
 		return (i == LEN(map)) ? "?" : map[i].symbol;
 	}
 
+    const char *
+    battery_icon(const char *bat)
+    {
+		int perc;
+		char path[PATH_MAX], state[12];
+
+		if (esnprintf(path, sizeof(path),
+		              "/sys/class/power_supply/%s/status", bat) < 0) {
+			return NULL;
+		}
+		if (pscanf(path, "%12s", state) != 1) {
+			return NULL;
+		}
+
+        if (!strcmp("Full", state)) {
+            return bprintf("<icon /home/andrelo/.local/share/icons/baricons/battery-ac-adapter.svg>");
+        }
+
+		if (esnprintf(path, sizeof(path),
+		              "/sys/class/power_supply/%s/capacity", bat) < 0) {
+			return NULL;
+		}
+		if (pscanf(path, "%d", &perc) != 1) {
+			return NULL;
+		}
+
+        if (!strcmp("Charging", state)) {
+            return bprintf("<icon /home/andrelo/.local/share/icons/baricons/battery-%02d0-charging.svg>", perc/10);
+        } else {
+            return bprintf("<icon /home/andrelo/.local/share/icons/baricons/battery-%02d0.svg>", perc/10);
+        }
+    }
+
 	const char *
 	battery_remaining(const char *bat)
 	{

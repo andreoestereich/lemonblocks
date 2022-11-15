@@ -9,13 +9,14 @@ static const bBlock blocks[] = {
 	{ run_command,        "%s|",           "sh /home/andrelo/.local/bin/wttbar", 0, 11},
 	{ run_command,        "%s ",           "sh /home/andrelo/.local/bin/ctemp", 300, 0},
 	{ run_command,        "%s|",           "sh /home/andrelo/repos/pom/moonphase", 36000, 0},
-	{ battery_state,      "%s",           "BAT0",  1,  0 },
-	{ battery_perc,       "%s",           "BAT0",  1,  0 },
+	/* { battery_state,      "%s",           "BAT0",  1,  0 }, */
+	{ battery_icon,       "%s",           "BAT0",  1,  0 },
 	//{ battery_remaining,  "%%%s",           "BAT0",  1,  0 },
 	//{ cpu_freq,           "|%s",           NULL,  1,  0  },
 	{ cpu_perc,           "|⚙️ %s",         1,  1,  0  },
 	{ ram_used,           "| %s",          'G',  1,  0  },
-	{ wifi_perc_bar,          "| %s",         "wlp1s0",  1,  0 },
+	/* { wifi_perc_bar,          "| %s",         "wlp1s0",  1,  0 }, */
+	{ wifi_icon,          "|%s",         "wlp1s0",  1,  0 },
 	//{ netspeed_rx,          "|🔻%s",         "wlp1s0",  1,  0 },
 	//{ netspeed_tx,          "🔺%s",         "wlp1s0",  1,  0 },
 	{ num_files,          "|📫id:%s",           "/home/andrelo/Mail/idUff/Inbox/new/",  0,  2},

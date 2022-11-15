@@ -30,6 +30,7 @@ const char *bspDesktops(void);
 const char *battery_perc(const char *);
 const char *battery_state(const char *);
 const char *battery_remaining(const char *);
+const char * battery_icon(const char *bat);
 
 /* cpu */
 const char *cpu_freq(void);
@@ -105,6 +106,7 @@ const char *vol_perc(const char *card);
 
 /* wifi */
 const char *wifi_perc(const char *interface);
+const char *wifi_icon(const char *interface);
 const char *wifi_perc_bar(const char *interface);
 const char *wifi_essid(const char *interface);
 

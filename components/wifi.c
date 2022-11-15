@@ -69,6 +69,57 @@
 	}
 
 	const char *
+	wifi_icon(const char *interface)
+	{
+		int cur;
+		size_t i;
+		char *p, *datastart;
+		char path[PATH_MAX];
+		char status[5];
+		FILE *fp;
+
+		if (esnprintf(path, sizeof(path), "/sys/class/net/%s/operstate",
+		              interface) < 0) {
+			return NULL;
+		}
+		if (!(fp = fopen(path, "r"))) {
+			warn("fopen '%s':", path);
+			return NULL;
+		}
+		p = fgets(status, 5, fp);
+		fclose(fp);
+		if (!p || strcmp(status, "up\n") != 0) {
+			return NULL;
+		}
+
+		if (!(fp = fopen("/proc/net/wireless", "r"))) {
+			warn("fopen '/proc/net/wireless':");
+			return NULL;
+		}
+
+		for (i = 0; i < 3; i++) {
+			if (!(p = fgets(buf, sizeof(buf) - 1, fp)))
+				break;
+		}
+		fclose(fp);
+		if (i < 2 || !p) {
+			return NULL;
+		}
+
+		if (!(datastart = strstr(buf, interface))) {
+			return NULL;
+		}
+
+		datastart = (datastart+(strlen(interface)+1));
+		sscanf(datastart + 1, " %*d   %d  %*d  %*d\t\t  %*d\t   "
+		       "%*d\t\t%*d\t\t %*d\t  %*d\t\t %*d", &cur);
+
+		/* 70 is the max of /proc/net/wireless */
+        int val = (int)((float)cur / 14.00001)*25;
+        return bprintf("<icon /home/andrelo/.local/share/icons/baricons/signal-%i.svg>", val);
+    }
+
+	const char *
 	wifi_perc_bar(const char *interface)
 	{
 		int cur;
