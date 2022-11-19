@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="15.263843mm"
+   height="9.29708mm"
+   viewBox="0 0 15.263843 9.29708"
+   version="1.1"
+   id="svg325"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="03d.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview327"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="3.2301021"
+     inkscape:cx="6.9657241"
+     inkscape:cy="9.5972198"
+     inkscape:window-width="1362"
+     inkscape:window-height="745"
+     inkscape:window-x="0"
+     inkscape:window-y="19"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs322" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-69.404668,-144.21927)">
+    <g
+       id="g293"
+       transform="matrix(0.26458333,0,0,0.26458333,63.686218,135.52468)">
+      <path
+         style="fill:#f0f0f0"
+         d="m 25.240926,65.75 c -3.224053,-3.441721 -4.372775,-7.271324 -3.149563,-10.5 1.557318,-4.110549 4.834878,-7.145537 8.448813,-7.823515 2.889642,-0.5421 3.277612,-1.031416 3.778325,-4.76531 1.345047,-10.030219 14.396153,-13.334702 20.909263,-5.294135 0.95027,1.173128 1.73777,3.079403 1.75,4.236167 0.02023,1.913391 0.464456,2.060716 4.922122,1.632391 4.430889,-0.425753 5.063594,-0.220968 6.610237,2.139507 1.038963,1.585659 1.477301,3.538866 1.11666,4.975775 -0.515608,2.054344 -0.287649,2.306947 1.733253,1.920627 1.505477,-0.28779 3.336002,0.423132 5.185271,2.013806 2.278489,1.959874 2.836226,3.238344 2.749376,6.302251 C 79.091477,67.756362 78.163552,68 51.06353,68 27.761469,68 27.311936,67.960831 25.240926,65.75 Z"
+         id="path295" />
+    </g>
+  </g>
+</svg>
