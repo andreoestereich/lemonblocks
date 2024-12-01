@@ -34,7 +34,7 @@ const char * battery_icon(const char *bat);
 
 /* cpu */
 const char *cpu_freq(void);
-const char *cpu_perc(int bar);
+const char *cpu_perc(const char* bar);
 
 /* datetime */
 const char *datetime(const char *fmt);
@@ -76,10 +76,10 @@ const char *netspeed_tx(const char *interface);
 const char *num_files(const char *path);
 
 /* ram */
-const char *ram_free(char unit);
+const char *ram_free(const char *unit);
 const char *ram_perc(void);
-const char *ram_total(char unit);
-const char *ram_used(char unit);
+const char *ram_total(const char *unit);
+const char *ram_used(const char *unit);
 
 /* run_command */
 const char *run_command(const char *cmd);

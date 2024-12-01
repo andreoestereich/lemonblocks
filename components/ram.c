@@ -7,7 +7,7 @@
 	#include <stdint.h>
 
 	const char *
-	ram_free(char unit)
+	ram_free(const char *unit)
 	{
 		uintmax_t free;
 
@@ -19,7 +19,7 @@
 			return NULL;
 		}
 
-        return fmt_bytes(free* 1024, &unit);
+        return fmt_bytes(free* 1024, (char *)unit);
 	}
 
 	const char *
@@ -46,7 +46,7 @@
 	}
 
 	const char *
-	ram_total(char unit)
+	ram_total(const char *unit)
 	{
 		uintmax_t total;
 
@@ -55,11 +55,11 @@
 			return NULL;
 		}
 
-        return fmt_bytes(total* 1024, &unit);
+        return fmt_bytes(total* 1024, (char *)unit);
 	}
 
 	const char *
-	ram_used(char unit)
+	ram_used(const char *unit)
 	{
 		uintmax_t total, free, buffers, cached;
 
@@ -73,7 +73,7 @@
 			return NULL;
 		}
 
-        return fmt_bytes((total - free - buffers - cached)* 1024, &unit);
+        return fmt_bytes((total - free - buffers - cached)* 1024, (char*) unit);
 	}
 #elif defined(__OpenBSD__)
 	#include <stdlib.h>
